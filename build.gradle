@@ -1,0 +1,45 @@
+import org.apache.tools.ant.taskdefs.condition.Os
+
+apply plugin: "groovy"
+
+repositories {
+	jcenter()
+}
+
+dependencies {
+	testCompile "org.codehaus.groovy:groovy-all:2.3.7"
+
+	testCompile "org.seleniumhq.selenium:selenium-firefox-driver:2.43.1"
+	testCompile "org.seleniumhq.selenium:selenium-chrome-driver:2.43.1"
+	testCompile("com.github.detro.ghostdriver:phantomjsdriver:1.1.0") {
+		transitive = false  // phantomjs driver pulls in a different selenium version
+	}
+
+	testCompile "org.gebish:geb-core:0.10.0"
+	testCompile "info.cukes:cucumber-groovy:1.2.0"
+	testCompile "info.cukes:gherkin:2.12.2"
+
+}
+
+configurations {
+	cucumberRuntime { extendsFrom testRuntime }
+}
+
+task cucumber() {
+	dependsOn testClasses
+	doLast {
+		javaexec {
+			main = "cucumber.api.cli.Main"
+			classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+			args = [
+					'--plugin',
+					'pretty',
+					'--tags',
+					'~@wip',
+					'--glue',
+					'src/test/groovy',
+					'src/test/resources'
+			]
+		}
+	}
+}
