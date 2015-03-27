@@ -9,8 +9,8 @@ repositories {
 dependencies {
 	testCompile "org.codehaus.groovy:groovy-all:2.3.7"
 
-	testCompile "org.seleniumhq.selenium:selenium-firefox-driver:2.43.1"
-	testCompile "org.seleniumhq.selenium:selenium-chrome-driver:2.43.1"
+	testCompile "org.seleniumhq.selenium:selenium-firefox-driver:2.45.0"
+	testCompile "org.seleniumhq.selenium:selenium-chrome-driver:2.45.0"
 	testCompile("com.github.detro.ghostdriver:phantomjsdriver:1.1.0") {
 		transitive = false  // phantomjs driver pulls in a different selenium version
 	}
@@ -32,12 +32,9 @@ task cucumber() {
 			main = "cucumber.api.cli.Main"
 			classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
 			args = [
-					'--plugin',
-					'pretty',
-					'--tags',
-					'~@wip',
-					'--glue',
-					'src/test/groovy/steps',
+					'--plugin', 'pretty',
+					'--tags', '~@wip',
+					'--glue', 'src/test/groovy/steps',
 					'src/test/resources'
 			]
 		}
