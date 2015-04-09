@@ -5,18 +5,13 @@ repositories {
 }
 
 dependencies {
-	testCompile "org.codehaus.groovy:groovy-all:2.3.7"
+	testCompile "org.codehaus.groovy:groovy-all:2.4.3"
 
 	testCompile "org.seleniumhq.selenium:selenium-firefox-driver:2.45.0"
-	testCompile "org.seleniumhq.selenium:selenium-chrome-driver:2.45.0"
-	testCompile("com.github.detro.ghostdriver:phantomjsdriver:1.1.0") {
-		transitive = false  // phantomjs driver pulls in a different selenium version
-	}
 
 	testCompile "org.gebish:geb-core:0.10.0"
 	testCompile "info.cukes:cucumber-groovy:1.2.0"
 	testCompile "info.cukes:gherkin:2.12.2"
-
 }
 
 configurations {
@@ -37,4 +32,8 @@ task cucumber() {
 			]
 		}
 	}
+}
+
+task wrapper(type: Wrapper) {
+	gradleVersion = '2.3'
 }
